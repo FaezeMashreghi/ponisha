@@ -26,6 +26,7 @@ export const PersonalInfo = ({ onNextButtonClick }) => {
       name: "",
       phoneNumber: "",
     },
+    mode: "onTouched",
   });
   const dispatch = useDispatch();
 
@@ -68,7 +69,7 @@ export const PersonalInfo = ({ onNextButtonClick }) => {
           className="mt-24"
         />
       </Box>
-      <Box sx={{ mr: "auto", mt: 2 }}>
+      <Box sx={{ textAlign:'right', mt: 2 }}>
         <Button type="submit" variant="contained" disabled={!isValid}>
           next step
         </Button>

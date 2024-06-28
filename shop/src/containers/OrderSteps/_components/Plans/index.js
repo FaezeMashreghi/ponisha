@@ -68,10 +68,11 @@ export const Plans = ({ onNextButtonClick, onBackButtonClick }) => {
         />
       </Box>
       <Box sx={{ display: "flex", justifyContent: "space-between", mt: 2 }}>
-        <Button onClick={onNextButtonClick} variant="contained">
+          <Button onClick={onBackButtonClick}>go back</Button>
+
+          <Button onClick={onNextButtonClick} variant="contained" disabled={!selectedPlane}>
           next step
         </Button>
-        <Button onClick={onBackButtonClick}>go back</Button>{" "}
       </Box>
     </>
   );

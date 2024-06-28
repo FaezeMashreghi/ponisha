@@ -12,6 +12,7 @@ export const AddOns = ({ onNextButtonClick, onBackButtonClick }) => {
   const handleCardChecked = (id, checked) => {
     dispatch(setAddOns({ [id]: !checked }));
   };
+  const isValidToGoNextSlide=Object.values(addOns).some((value)=>value)
   return (
     <>
       <Typography variant="h3" mt={3} mb={2}>
@@ -33,10 +34,11 @@ export const AddOns = ({ onNextButtonClick, onBackButtonClick }) => {
         </Box>
       ))}
       <Box sx={{ display: "flex", justifyContent: "space-between", mt: 2 }}>
-        <Button onClick={onNextButtonClick} variant="contained">
+          <Button onClick={onBackButtonClick}>go back</Button>
+
+          <Button onClick={onNextButtonClick} variant="contained" disabled={!isValidToGoNextSlide}>
           next step
         </Button>
-        <Button onClick={onBackButtonClick}>go back</Button>
       </Box>
     </>
   );
