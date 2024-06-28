@@ -3,7 +3,7 @@ import {
   PLANS_DURATION_MONTHLY,
   PLANS_DURATION_Yearly,
 } from "../../../../shared/constants/orderPlaned";
-import { PlansCard } from "../../../../components/PlansCard";
+import { SelectableCard } from "../../../../components/SelectableCard";
 import { Box, Grid } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import { Switch } from "../../../../components/Switch";
@@ -17,24 +17,24 @@ export const Plans = () => {
     setPlanDuration(checked ? PLANS_DURATION_Yearly : PLANS_DURATION_MONTHLY);
   };
   return (
-    <div className="py-32 px-64">
-      <Typography variant="h3" className="mb-16 mt-32">
-        personal info
+      <Box sx={{ py: 3, px: 5 }}>
+      <Typography variant="h3" mt={3} mb={2}>
+        Select your plan
       </Typography>
       <Typography variant="caption">
-        please provide your name,email address, and phone number
+        You have the option of monthly or yearly billing
       </Typography>
-      <Grid container spacing={2} className="mt-32">
+      <Grid container spacing={2} mt='3' >
         {orderPlaned.map(({ title, description, price, srcImage, id }) => (
           <Grid item sc={12} sm={4} key={id}>
-            <PlansCard
+            <SelectableCard
               src={srcImage}
               title={title}
               id={id}
               description={
                 planDuration === PLANS_DURATION_Yearly ? description : ""
               }
-              price={`$${price[planDuration]}/${planDuration===PLANS_DURATION_MONTHLY?'mo':'yr'}`}
+              label={`$${price[planDuration]}/${planDuration===PLANS_DURATION_MONTHLY?'mo':'yr'}`}
               onSelectedCardClick={handleSelectedCardClick}
               selected={selectedCardId===id}
             />
@@ -56,6 +56,6 @@ export const Plans = () => {
           onChange={handleSwitchChange}
         />
       </Box>
-    </div>
+      </Box>
   );
 };
