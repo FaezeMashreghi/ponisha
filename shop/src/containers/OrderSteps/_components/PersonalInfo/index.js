@@ -3,7 +3,7 @@ import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { FormTextField } from "../../../../components/FormTextField";
-import { Button } from "@mui/material";
+import { Box, Button } from "@mui/material";
 
 const warrantiesValidationSchema = Yup.object().shape({
   name: Yup.string().required("Name is required"),
@@ -31,35 +31,40 @@ export const PersonalInfo = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className='py-32 px-64'>
-      <Typography variant="h3" className="mb-16 mt-32">
-        personal info
+    <Box sx={{ py: 3, px: 5 }}>
+      <Typography variant="h3" mt={3} mb={2}>
+        Personal info
       </Typography>
       <Typography variant="caption">
-        please provide your name,email address, and phone number
+        Please provide your name,email address, and phone number
       </Typography>
-      <FormTextField
-        control={control}
-        name="name"
-        label="name"
-        disableClearable={false}
-        className="mt-24"
-      />
-      <FormTextField
-        control={control}
-        name="email"
-        label="email address"
-        disableClearable={false}
-        className="mt-24"
-      />
-      <FormTextField
-        control={control}
-        name="phoneNumber"
-        label="phone number"
-        disableClearable={false}
-        className="mt-24"
-      />
+      <Box sx={{ mt: 2 }}>
+        <FormTextField
+          control={control}
+          name="name"
+          label="name"
+          disableClearable={false}
+        />
+      </Box>
+      <Box sx={{ mt: 2 }}>
+        <FormTextField
+          control={control}
+          name="email"
+          label="email address"
+          disableClearable={false}
+          className="mt-24"
+        />
+      </Box>
+      <Box sx={{ mt: 2 }}>
+        <FormTextField
+          control={control}
+          name="phoneNumber"
+          label="phone number"
+          disableClearable={false}
+          className="mt-24"
+        />
+      </Box>
       <Button>ds</Button>
-    </form>
+    </Box>
   );
 };
