@@ -1,45 +1,43 @@
 import Typography from "@mui/material/Typography";
 
 import { CheckBoxCard } from "../../../../components/CheckBoxCard";
-import {
-  addOnOptions,
-  ADDONS_LARGER_STORAGE,
-  ADDONS_ONLINE_SERVICE,
-} from "../../../../shared/constants/addOn";
-import { useState } from "react";
-import { Box } from "@mui/material";
+import { addOnOptions } from "../../../../shared/constants/addOn";
+import { Box, Button } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import { setAddOns } from "../../../../features/shopInfo/shopInfoSlice";
 
-const initialAddOns = {
-  [ADDONS_ONLINE_SERVICE]: false,
-  [ADDONS_LARGER_STORAGE]: false,
-  ADDONS_CUSTOMIZE_PROFILE: false,
-};
-export const AddOns = () => {
-  const [selectedAddOns, setSelectedAddOns] = useState(initialAddOns);
-  const handleCardChecked = (id) => {
-    setSelectedAddOns((prevState) => ({ ...prevState, [id]: !prevState[id] }));
+export const AddOns = ({ onNextButtonClick, onBackButtonClick }) => {
+  const dispatch = useDispatch();
+  const { addOns, planDuration } = useSelector((state) => state.shopInfo);
+  const handleCardChecked = (id, checked) => {
+    dispatch(setAddOns({ [id]: !checked }));
   };
   return (
-    <Box sx={{ py: 3, px: 5 }}>
+    <>
       <Typography variant="h3" mt={3} mb={2}>
         Pick add-ons
       </Typography>
       <Typography variant="caption">
         Add-ons help enhance your gaming experience.
       </Typography>
-      {addOnOptions.map(({ title, description, id }) => (
+      {addOnOptions.map(({ title, description, id, price }) => (
         <Box sx={{ mt: 2 }}>
           <CheckBoxCard
             label={title}
             id={id}
-            checked={selectedAddOns[id]}
+            checked={addOns[id]}
             description={description}
             onCardCheck={handleCardChecked}
-            //todo fix this with year
-            rightLabel={`90000`}
+            rightLabel={`$${price[planDuration]}/${planDuration}`}
           />
         </Box>
       ))}
-    </Box>
+      <Box sx={{ display: "flex", justifyContent: "space-between", mt: 2 }}>
+        <Button onClick={onNextButtonClick} variant="contained">
+          next step
+        </Button>
+        <Button onClick={onBackButtonClick}>go back</Button>
+      </Box>
+    </>
   );
 };

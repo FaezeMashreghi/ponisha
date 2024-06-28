@@ -12,7 +12,7 @@ export const CheckBoxCard = ({
   return (
     <Card>
       <CardActionArea
-        onClick={() => onCardCheck(id)}
+        onClick={() => onCardCheck(id, checked)}
         sx={{
           p: 1,
           border: checked ? "1px solid purple" : "",
@@ -21,7 +21,7 @@ export const CheckBoxCard = ({
           justifyContent: "flex-start",
         }}
       >
-        <Checkbox color="secondary" checked />
+        <Checkbox color="secondary" checked={checked} />
         <div>
           <Typography variant="subtitle1">{label}</Typography>
           <Typography variant="subtitle1" color="text.secondary">

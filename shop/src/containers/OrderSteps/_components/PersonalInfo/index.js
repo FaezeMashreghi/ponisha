@@ -4,34 +4,38 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { FormTextField } from "../../../../components/FormTextField";
 import { Box, Button } from "@mui/material";
+import { useDispatch } from "react-redux";
+import { setPersonalInfo } from "../../../../features/shopInfo/shopInfoSlice";
 
-const warrantiesValidationSchema = Yup.object().shape({
+const validationSchema = Yup.object().shape({
   name: Yup.string().required("Name is required"),
   email: Yup.string()
     .email("Enter a valid email")
     .required("Email is required"),
-  phoneNumber: Yup.number().required("phone number is required"),
+  phoneNumber: Yup.number().required("Phone number is required"),
 });
-export const PersonalInfo = () => {
+export const PersonalInfo = ({ onNextButtonClick }) => {
   const {
     control,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm({
-    resolver: yupResolver(warrantiesValidationSchema),
+    resolver: yupResolver(validationSchema),
     defaultValues: {
       email: "",
       name: "",
       phoneNumber: "",
     },
-    mode: "onTouched",
   });
+  const dispatch = useDispatch();
+
   const onSubmit = (data) => {
-    console.log(data);
+    dispatch(setPersonalInfo(data));
+    onNextButtonClick();
   };
 
   return (
-    <Box sx={{ py: 3, px: 5 }}>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <Typography variant="h3" mt={3} mb={2}>
         Personal info
       </Typography>
@@ -64,7 +68,11 @@ export const PersonalInfo = () => {
           className="mt-24"
         />
       </Box>
-      <Button>ds</Button>
-    </Box>
+      <Box sx={{ mr: "auto", mt: 2 }}>
+        <Button type="submit" variant="contained" disabled={!isValid}>
+          next step
+        </Button>
+      </Box>
+    </form>
   );
 };

@@ -4,27 +4,38 @@ import {
   PLANS_DURATION_Yearly,
 } from "../../../../shared/constants/orderPlaned";
 import { SelectableCard } from "../../../../components/SelectableCard";
-import { Box, Grid } from "@mui/material";
+import { Box, Button, Grid } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import { Switch } from "../../../../components/Switch";
-import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  setDuration,
+  setPlan,
+} from "../../../../features/shopInfo/shopInfoSlice";
 
-export const Plans = () => {
-  const [planDuration, setPlanDuration] = useState(PLANS_DURATION_Yearly);
-  const [selectedCardId,setSelectedCardId]=useState('')
-  const handleSelectedCardClick = (id) => {setSelectedCardId(id)};
+export const Plans = ({ onNextButtonClick, onBackButtonClick }) => {
+  const dispatch = useDispatch();
+  const { planDuration, selectedPlane } = useSelector(
+    (state) => state.shopInfo,
+  );
+
+  const handleSelectedCardClick = (id) => {
+    dispatch(setPlan(id));
+  };
   const handleSwitchChange = (_e, checked) => {
-    setPlanDuration(checked ? PLANS_DURATION_Yearly : PLANS_DURATION_MONTHLY);
+    dispatch(
+      setDuration(checked ? PLANS_DURATION_Yearly : PLANS_DURATION_MONTHLY),
+    );
   };
   return (
-      <Box sx={{ py: 3, px: 5 }}>
+    <>
       <Typography variant="h3" mt={3} mb={2}>
         Select your plan
       </Typography>
       <Typography variant="caption">
         You have the option of monthly or yearly billing
       </Typography>
-      <Grid container spacing={2} mt='3' >
+      <Grid container spacing={2} mt="3">
         {orderPlaned.map(({ title, description, price, srcImage, id }) => (
           <Grid item sc={12} sm={4} key={id}>
             <SelectableCard
@@ -34,9 +45,9 @@ export const Plans = () => {
               description={
                 planDuration === PLANS_DURATION_Yearly ? description : ""
               }
-              label={`$${price[planDuration]}/${planDuration===PLANS_DURATION_MONTHLY?'mo':'yr'}`}
+              label={`$${price[planDuration]}/${planDuration}`}
               onSelectedCardClick={handleSelectedCardClick}
-              selected={selectedCardId===id}
+              selected={selectedPlane === id}
             />
           </Grid>
         ))}
@@ -56,6 +67,12 @@ export const Plans = () => {
           onChange={handleSwitchChange}
         />
       </Box>
+      <Box sx={{ display: "flex", justifyContent: "space-between", mt: 2 }}>
+        <Button onClick={onNextButtonClick} variant="contained">
+          next step
+        </Button>
+        <Button onClick={onBackButtonClick}>go back</Button>{" "}
       </Box>
+    </>
   );
 };
