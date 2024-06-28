@@ -1,0 +1,64 @@
+@font-face {
+  font-family: UbuntuBold;
+  src: url('../public/static/fonts/Ubuntu-Bold.ttf') format('bold');
+  src: url('../public/static/fonts/Ubuntu-Medium.ttf') format('medium');
+  src: url('../public/static/fonts/Ubuntu-Regular.ttf') format('regular');
+}
+
+body{
+  background-color:#ebeefa;
+  font-family: myFirstFont;
+}
+
+
+$directions: (
+        't': 'top',
+        'r': 'right',
+        'b': 'bottom',
+        'l': 'left',
+        'x': 'right left',
+        'y': 'top bottom',
+        '': 'all'
+);
+
+//margins
+@each $abbr, $name in ($directions) {
+  @for $index from 0 through 180 {
+    @if $index % 4 == 0 {
+      .m#{$abbr}-#{$index} {
+        @if $abbr== 'x' {
+          margin-right: $index + px !important;
+          margin-left: $index + px !important;
+        } @else if $abbr== 'y' {
+          margin-top: $index + px !important;
+          margin-bottom: $index + px !important;
+        } @else if $abbr== '' {
+          margin: $index + px !important;
+        } @else {
+          margin-#{$name}: $index + px !important;
+        }
+      }
+    }
+  }
+}
+
+//paddings
+@each $abbr, $name in ($directions) {
+  @for $index from 0 through 180 {
+    @if $index % 4 == 0 {
+      .p#{$abbr}-#{$index} {
+        @if $abbr== 'x' {
+          padding-right: $index + px !important;
+          padding-left: $index + px !important;
+        } @else if $abbr== 'y' {
+          padding-top: $index + px !important;
+          padding-bottom: $index + px !important;
+        } @else if $abbr== '' {
+          padding: $index + px !important;
+        } @else {
+          padding-#{$name}: $index + px !important;
+        }
+      }
+    }
+  }
+}
