@@ -1,13 +1,10 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@font-face {
+  font-family: UbuntuBold;
+  src: url('../public/static/fonts/Ubuntu-Bold.ttf') format('bold');
+  src: url('../public/static/fonts/Ubuntu-Medium.ttf') format('medium');
+  src: url('../public/static/fonts/Ubuntu-Regular.ttf') format('regular');
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+body{
+  font-family: myFirstFont;
 }
