@@ -31,7 +31,7 @@ export const PersonalInfo = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className='p-16'>
+    <form onSubmit={handleSubmit(onSubmit)} className='py-32 px-64'>
       <Typography variant="h3" className="mb-16 mt-32">
         personal info
       </Typography>
