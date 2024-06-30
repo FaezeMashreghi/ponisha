@@ -1,8 +1,7 @@
 import Typography from "@mui/material/Typography";
-
 import { CheckBoxCard } from "../../../../components/CheckBoxCard";
 import { addOnOptions } from "../../../../shared/constants/addOn";
-import { Box, Button } from "@mui/material";
+import { Box } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { setAddOns } from "../../../../features/shopInfo/shopInfoSlice";
 import { NavigationButton } from "../../../../components/NavigationButton";
