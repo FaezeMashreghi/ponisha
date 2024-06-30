@@ -14,6 +14,7 @@ This project is a simple and scalable React application using Redux and MUI. The
 - **Redux**: A predictable state container for JavaScript apps.
 - **Material-UI (MUI)**: A popular React UI framework.
 - **Redux Toolkit**: The official, recommended way to write Redux logic.
+- **React Hook Form**: Performant, flexible and extensible forms with easy-to-use validation.
 
 ## Installation
 
