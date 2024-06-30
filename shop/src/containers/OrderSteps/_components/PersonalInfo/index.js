@@ -3,9 +3,10 @@ import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { FormTextField } from "../../../../components/FormTextField";
-import { Box, Button } from "@mui/material";
+import { Box } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { setPersonalInfo } from "../../../../features/shopInfo/shopInfoSlice";
+import { NavigationButton } from "../../../../components/NavigationButton";
 
 const validationSchema = Yup.object().shape({
   name: Yup.string().required("Name is required"),
@@ -18,7 +19,7 @@ export const PersonalInfo = ({ onNextButtonClick }) => {
   const {
     control,
     handleSubmit,
-    formState: { errors, isValid },
+    formState: { isValid },
   } = useForm({
     resolver: yupResolver(validationSchema),
     defaultValues: {
@@ -69,11 +70,13 @@ export const PersonalInfo = ({ onNextButtonClick }) => {
           className="mt-24"
         />
       </Box>
-      <Box sx={{ textAlign:'right', mt: 2 }}>
-        <Button type="submit" variant="contained" disabled={!isValid}>
-          next step
-        </Button>
-      </Box>
+      <NavigationButton
+        PrimaryButtonProps={{
+          disabled: !isValid,
+          type: "submit",
+        }}
+        PrimaryButtonLabel="next step"
+      />
     </form>
   );
 };

@@ -1,17 +1,14 @@
 import Typography from "@mui/material/Typography";
-import { Box, Button, Divider } from "@mui/material";
+import { Box, Divider } from "@mui/material";
 import { useSelector } from "react-redux";
 import { orderPlaned } from "../../../../shared/constants/orderPlaned";
 import { addOnOptions } from "../../../../shared/constants/addOn";
+import { NavigationButton } from "../../../../components/NavigationButton";
 
-export const Summary = () => {
-  const {
-    addOns,
-    planDuration,
-    selectedPlane,
-    onNextButtonClick,
-    onBackButtonClick,
-  } = useSelector((state) => state.shopInfo);
+export const Summary = ({ onNextButtonClick, onBackButtonClick }) => {
+  const { addOns, planDuration, selectedPlane } = useSelector(
+    (state) => state.shopInfo,
+  );
   const selectedPlanPrice = orderPlaned.find(({ id }) => id === selectedPlane)
     .price[planDuration];
 
@@ -40,7 +37,7 @@ export const Summary = () => {
         </Box>
         <Divider />
         {selectedAddOne.map(({ title, price }) => (
-          <Box sx={{ display: "flex", justifyContent: "space-between", mt: 2 }}>
+          <Box key={title} sx={{ display: "flex", justifyContent: "space-between", mt: 2 }}>
             <Typography variant="subtitle2" color="text.secondary">
               {title}
             </Typography>
@@ -56,13 +53,12 @@ export const Summary = () => {
           {`$${sumAddOns + selectedPlanPrice}/${planDuration}`}
         </Typography>
       </Box>
-      <Box sx={{ display: "flex", justifyContent: "space-between", mt: 2 }}>
-        <Button onClick={onBackButtonClick}>go back</Button>
-
-        <Button onClick={onNextButtonClick} variant="contained">
-          confirm
-        </Button>
-      </Box>
+      <NavigationButton
+        PrimaryButtonProps={{ onClick: onNextButtonClick }}
+        PrimaryButtonLabel="confirm"
+        secondaryButtonLabel="go back"
+        secondaryButtonProps={{ onClick: onBackButtonClick }}
+      />
     </>
   );
 };

@@ -5,6 +5,7 @@ import { addOnOptions } from "../../../../shared/constants/addOn";
 import { Box, Button } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { setAddOns } from "../../../../features/shopInfo/shopInfoSlice";
+import { NavigationButton } from "../../../../components/NavigationButton";
 
 export const AddOns = ({ onNextButtonClick, onBackButtonClick }) => {
   const dispatch = useDispatch();
@@ -12,7 +13,7 @@ export const AddOns = ({ onNextButtonClick, onBackButtonClick }) => {
   const handleCardChecked = (id, checked) => {
     dispatch(setAddOns({ [id]: !checked }));
   };
-  const isValidToGoNextSlide=Object.values(addOns).some((value)=>value)
+  const isValidToGoNextSlide = Object.values(addOns).some((value) => value);
   return (
     <>
       <Typography variant="h3" mt={3} mb={2}>
@@ -22,7 +23,7 @@ export const AddOns = ({ onNextButtonClick, onBackButtonClick }) => {
         Add-ons help enhance your gaming experience.
       </Typography>
       {addOnOptions.map(({ title, description, id, price }) => (
-        <Box sx={{ mt: 2 }}>
+        <Box sx={{ mt: 2 }} key={title}>
           <CheckBoxCard
             label={title}
             id={id}
@@ -33,13 +34,16 @@ export const AddOns = ({ onNextButtonClick, onBackButtonClick }) => {
           />
         </Box>
       ))}
-      <Box sx={{ display: "flex", justifyContent: "space-between", mt: 2 }}>
-          <Button onClick={onBackButtonClick}>go back</Button>
 
-          <Button onClick={onNextButtonClick} variant="contained" disabled={!isValidToGoNextSlide}>
-          next step
-        </Button>
-      </Box>
+      <NavigationButton
+        PrimaryButtonProps={{
+          onClick: onNextButtonClick,
+          disabled: !isValidToGoNextSlide,
+        }}
+        PrimaryButtonLabel="next step"
+        secondaryButtonLabel="go back"
+        secondaryButtonProps={{ onClick: onBackButtonClick }}
+      />
     </>
   );
 };

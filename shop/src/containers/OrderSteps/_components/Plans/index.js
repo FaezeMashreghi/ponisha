@@ -4,7 +4,7 @@ import {
   PLANS_DURATION_Yearly,
 } from "../../../../shared/constants/orderPlaned";
 import { SelectableCard } from "../../../../components/SelectableCard";
-import { Box, Button, Grid } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import { Switch } from "../../../../components/Switch";
 import { useDispatch, useSelector } from "react-redux";
@@ -12,6 +12,7 @@ import {
   setDuration,
   setPlan,
 } from "../../../../features/shopInfo/shopInfoSlice";
+import { NavigationButton } from "../../../../components/NavigationButton";
 
 export const Plans = ({ onNextButtonClick, onBackButtonClick }) => {
   const dispatch = useDispatch();
@@ -58,7 +59,7 @@ export const Plans = ({ onNextButtonClick, onBackButtonClick }) => {
           width: "100%",
           p: 1,
           borderRadius: "8px",
-          mt: 2,
+          mt: 4,
         }}
       >
         <Switch
@@ -67,13 +68,15 @@ export const Plans = ({ onNextButtonClick, onBackButtonClick }) => {
           onChange={handleSwitchChange}
         />
       </Box>
-      <Box sx={{ display: "flex", justifyContent: "space-between", mt: 2 }}>
-          <Button onClick={onBackButtonClick}>go back</Button>
-
-          <Button onClick={onNextButtonClick} variant="contained" disabled={!selectedPlane}>
-          next step
-        </Button>
-      </Box>
+      <NavigationButton
+        PrimaryButtonProps={{
+          onClick: onNextButtonClick,
+          disabled: !selectedPlane,
+        }}
+        PrimaryButtonLabel="next step"
+        secondaryButtonLabel="go back"
+        secondaryButtonProps={{ onClick: onBackButtonClick }}
+      />
     </>
   );
 };
