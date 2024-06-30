@@ -21,7 +21,7 @@ To get started, clone the repository and install the dependencies.
 
 ```bash
 git clone https://github.com/FaezeMashreghi/ponisha.git
-cd shop
+cd ponisha/shop/
 npm install
 ```
 
